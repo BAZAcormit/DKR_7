@@ -1,0 +1,45 @@
+c = ['first', 'second', 'third']
+cur_el = 0
+comm = "+"
+def show():
+	print("Текущий элемент: ", c[cur_el])
+	print("Для перехода к следующему элементу нажмите '+'")
+	print("Для перехода к предыдущему элементу нажмите '-'")
+	print("Для добавления нового элемента после текущего введите необходимое значение и нажмите Enter")
+	print("Для удаления текущего елемента введите DEL и нажмите Enter")
+	print("Для вывода всех элементов введите LIST и нажмите Enter")
+	print("Для выхода оставитье строку пустой и нажмите Enter")
+	new_comm()
+def new_comm():
+	global comm
+	comm = input()
+	menu()
+def menu():
+	global cur_el
+	global c
+	match comm:
+		case "+":
+			if len(c) > cur_el+1:
+				cur_el += 1
+			else:
+				cur_el = 0
+			show()
+		case "-":
+			if cur_el == 0:
+				cur_el = len(c) -1
+			else:
+				cur_el -= 1
+			show()
+		case "":
+			exit
+		case "DEL":
+			print("Элемент ", c.pop(cur_el), " уничтожен")
+			show()
+		case "LIST":
+			print(c)
+			show()
+		case _:
+			c.insert(cur_el+1, comm)
+			print("Элемент ", comm, " добавлен")
+			new_comm()
+show()
